@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}
+new topic
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a href="{% url "home" %}" class="link-primary text-decoration-none">Boards</a></li>
+<li class="breadcrumb-item"><a href="{% url "board_topics" board.pk %}"
+    class="link-primary text-decoration-none">{{board.name}}</a></li>
+<li class="breadcrumb-item active">new topic</li>
+{% endblock %}
+
+{% block content %}
+<form method="post" novalidate>
+    {% csrf_token %}
+    {% include "includes/form.html" %}
+
+    {% comment %}
+    <label class="form-label">subject</label>
+    <input type="text" class="form-control" name="subject" id="id_subject">
+    <br>
+    <label class="form-label">message</label>
+    <textarea name="message" class="form-control" id="id_message" rows="7"></textarea>
+    <br> {% endcomment %}
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>
+{% endblock %}

@@ -35,7 +35,7 @@
                 </div>
                     <p>{{post.message}}</p>
                 {% if post.created_by == user %}
-                <a href="#" class='btn btn-primary'>edit</a>
+                <a href="{% url 'edit_post' post.topic.board.pk post.topic.pk post.pk %}" class='btn btn-primary'>edit</a>
                 {% endif %}
             </div>
         </div>

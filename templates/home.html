@@ -21,9 +21,17 @@
                          class="link-primary text-decoration-none">{{board.name}}</a>
                         <small class="text-muted d-block"> {{board.discription}}</small>
                     </td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td></td>
+                    <td>{{board.topics.count}}</td>
+                    <td>{{board.get_posts_count}}</td>
+                    <td>
+                        {% with post=board.get_last_post %}
+                        {% if post %}
+                        by {{post.created_by.username}} at {{post.date}}
+                        {% else %}
+                        <small>No posts</small>
+                        {% endif %}
+                        {% endwith %}
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

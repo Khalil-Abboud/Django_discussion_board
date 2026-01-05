@@ -23,16 +23,40 @@
     </tr>
 </thead>
 <tbody>
-    {% for topic in board.topics.all %}
+    {% for topic in topics %}
     <tr>
         <td><a href="{% url "topic_posts" board.pk topic.pk %}" 
             class="link-primary text-decoration-none">{{topic.subject}}</a></td>
         <td>{{topic.created_by.username}}</td>
-        <td>0</td>
-        <td>0</td>
+        <td>{{topic.comments}}</td>
+        <td>{{topic.views}}</td>
         <td>{{topic.date}}</td>
     </tr>
     {% endfor %}
 </tbody>
 </table>
+<ul class="pagination">
+    {% if topics.has_previous %}
+    <li class="page-item">
+        <a class="page-link" href="?page={{topics.previous_page_number}}">Previous</a>
+    </li>
+    {% endif %}
+    {% for page_num in topics.paginator.page_range %}
+    {% if topics.number == page_num %}
+    <li class="page-item active">
+        <span class="page-link">{{page_num}}</span>
+        {% comment %} <span>(current)</span> {% endcomment %}
+    </li>
+    {% else %}
+    <li class="page-item">
+        <a class="page-link" href="?page={{page_num}}">{{page_num}}</a>
+    </li>
+    {% endif %}
+    {% endfor %}
+    {% if topics.has_next %}
+    <li class="page-item">
+        <a class="page-link" href="?page={{topics.next_page_number}}">Next</a>
+    </li>
+    {% endif %}
+</ul>
 {% endblock  %}
